@@ -36,7 +36,7 @@ import Prelude as X (
   -- Utilties
   all, not, elem, (&&),
   -- Constants
-  mempty, otherwise)
+  mempty, undefined, otherwise)
   
 import Control.Monad.State as X (
   StateT, -- Type constructor that adds state to a monad type
