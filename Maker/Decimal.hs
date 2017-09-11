@@ -1,4 +1,3 @@
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE DatatypeContexts #-}
 {-# LANGUAGE UnicodeSyntax #-}
@@ -6,18 +5,15 @@
 {-# LANGUAGE NumDecimals #-}
 
 
-
-module Maker.Decimal (Decimal (..), E18, E36, Ε(..)) where
-import Prelude ()
-import Maker.Prelude
+module Maker.Decimal (Decimal (..), E18, E36, Εpsilon(..)) where
 import Data.Fixed
 
 newtype HasResolution e ⇒ Decimal e = D (Fixed e)
   deriving (Ord, Eq, Real, RealFrac)
 
 
--- instance HasResolution e ⇒ Read (Decimal e) where
---   readsPrec n s = fmap (\(x, y) → (D, x, y)) (readsPrec n s)
+instance HasResolution e ⇒ Read (Decimal e) where
+  readsPrec n s = fmap (\(x, y) → (D, x, y)) (readsPrec n s)
 
 instance HasResolution e ⇒ Show (Decimal e) where
   show (D x) = show x
@@ -42,9 +38,9 @@ instance HasResolution e ⇒ Fractional (Decimal e) where
 data E18; data E36
 instance HasResolution E18 where
   resolution _ = 10 ^ (18 ∷ Integer)
+  
 instance HasResolution E36 where
-    resolution _ = 10 ^ (36 ∷ Integer)
-
+  resolution _ = 10 ^ (36 ∷ Integer)
 
 class Εpsilon t where (∉) ∷ t
 instance HasResolution a ⇒ Εpsilon (Decimal a) where
